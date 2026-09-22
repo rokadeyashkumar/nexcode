@@ -1,0 +1,37 @@
+@use '../../styles/variables' as v;
+
+.website {
+  min-height: 100vh;
+  background: #f8f9fa;
+  color: #1a1a1a;
+  transition: all 0.3s ease;
+
+  &.dark {
+    background: #1a1a1a;
+    color: #e8e8e8;
+  }
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.website {
+  min-height: 100vh;
+  background: #f8f9fa;
+  color: #1a1a1a;
+  transition: all 0.3s ease;
+
+  &.dark {
+    background: #1a1a1a;
+    color: #e8e8e8;
+  }
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}

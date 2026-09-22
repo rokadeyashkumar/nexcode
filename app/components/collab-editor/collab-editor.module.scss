@@ -1,0 +1,247 @@
+@use '../../../styles/variables' as v;
+
+.container {
+  height: 100vh;
+  display: flex;
+  background: #f8f9fa;
+  font-family: v.$font-body;
+}
+
+// Sidebar
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+
+  .dark & {
+    background: #242424;
+    border-right-color: #333;
+  }
+}
+
+.sidebarHeader {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+
+  .dark & {
+    border-bottom-color: #333;
+  }
+}
+
+.backBtn {
+  font-size: 12px;
+  color: #3B82F6;
+  cursor: pointer;
+  margin-bottom: 6px;
+  font-weight: 400;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  .dark & {
+    color: #60a5fa;
+  }
+}
+
+.projectTitle {
+  font-weight: 600;
+  font-size: 15px;
+  color: #1a1a1a;
+
+  .dark & {
+    color: #e8e8e8;
+  }
+}
+
+.projectStatus {
+  font-size: 11px;
+  color: #888;
+  margin-top: 2px;
+  text-transform: capitalize;
+
+  .dark & {
+    color: #666;
+  }
+}
+
+.fileList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.fileItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #333;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: #f0f0f0;
+  }
+
+  &.active {
+    background: #eaf3fe;
+    color: #1d4ed8;
+  }
+
+  .dark & {
+    color: #ccc;
+
+    &:hover {
+      background: #2a2a2a;
+    }
+
+    &.active {
+      background: #1a2a3a;
+      color: #60a5fa;
+    }
+  }
+}
+
+.fileIcon {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.fileActions {
+  padding: 8px;
+  border-top: 1px solid #e0e0e0;
+
+  .dark & {
+    border-top-color: #333;
+  }
+}
+
+.addFileBtn {
+  width: 100%;
+  padding: 6px 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  color: #333;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #f0f0f0;
+    border-color: #999;
+  }
+
+  .dark & {
+    border-color: #333;
+    color: #ccc;
+
+    &:hover {
+      background: #2a2a2a;
+      border-color: #555;
+    }
+  }
+}
+
+// Editor Area
+.editorArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.editorToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 16px;
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  flex-shrink: 0;
+  min-height: 40px;
+
+  .dark & {
+    background: #242424;
+    border-bottom-color: #333;
+  }
+}
+
+.toolbarLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fileInfo {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+
+  .dark & {
+    color: #ccc;
+  }
+}
+
+.toolbarRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.terminalToggle {
+  padding: 4px 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background: transparent;
+  font-size: 12px;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #f0f0f0;
+    border-color: #999;
+  }
+
+  &.active {
+    background: #f0f0f0;
+    border-color: #999;
+  }
+
+  .dark & {
+    border-color: #333;
+    color: #999;
+
+    &:hover {
+      background: #2a2a2a;
+      border-color: #555;
+    }
+
+    &.active {
+      background: #2a2a2a;
+      border-color: #555;
+    }
+  }
+}
+
+.editorWrapper {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #888;
+  font-size: 14px;
+}

@@ -1,0 +1,154 @@
+@use '../../../../styles/variables' as v;
+
+.footer {
+  padding: 60px 0 24px;
+  border-top: 1px solid #e0e0e0;
+
+  .dark & {
+    border-top-color: #333;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  margin-bottom: 40px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.logo {
+  font-family: v.$font-mono;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+
+  .dark & {
+    color: #e8e8e8;
+  }
+}
+
+.logoText {
+  font-family: v.$font-display;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+
+  .dark & {
+    color: #e8e8e8;
+  }
+}
+
+.tagline {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+
+  .dark & {
+    color: #999;
+  }
+}
+
+.links {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.linkGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: #1a1a1a;
+
+    .dark & {
+      color: #e8e8e8;
+    }
+  }
+
+  a {
+    font-size: 14px;
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #1a1a1a;
+    }
+
+    .dark & {
+      color: #999;
+
+      &:hover {
+        color: #e8e8e8;
+      }
+    }
+  }
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  border-top: 1px solid #e0e0e0;
+  font-size: 14px;
+  color: #666;
+
+  .dark & {
+    border-top-color: #333;
+    color: #999;
+  }
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+.social {
+  display: flex;
+  gap: 20px;
+
+  a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #1a1a1a;
+    }
+
+    .dark & {
+      color: #999;
+
+      &:hover {
+        color: #e8e8e8;
+      }
+    }
+  }
+}
