@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #242424;
     border-right-color: #333;
   }
@@ -26,7 +26,7 @@
   padding: 12px 16px;
   border-bottom: 1px solid #e0e0e0;
 
-  .dark & {
+  [data-theme='dark'] & {
     border-bottom-color: #333;
   }
 }
@@ -42,7 +42,7 @@
     text-decoration: underline;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #60a5fa;
   }
 }
@@ -52,7 +52,7 @@
   font-size: 15px;
   color: #1a1a1a;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #e8e8e8;
   }
 }
@@ -63,7 +63,7 @@
   margin-top: 2px;
   text-transform: capitalize;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #666;
   }
 }
@@ -94,7 +94,7 @@
     color: #1d4ed8;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #ccc;
 
     &:hover {
@@ -117,7 +117,7 @@
   padding: 8px;
   border-top: 1px solid #e0e0e0;
 
-  .dark & {
+  [data-theme='dark'] & {
     border-top-color: #333;
   }
 }
@@ -138,7 +138,7 @@
     border-color: #999;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     border-color: #333;
     color: #ccc;
 
@@ -167,7 +167,7 @@
   flex-shrink: 0;
   min-height: 40px;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #242424;
     border-bottom-color: #333;
   }
@@ -184,7 +184,7 @@
   font-weight: 500;
   color: #333;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #ccc;
   }
 }
@@ -215,7 +215,7 @@
     border-color: #999;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     border-color: #333;
     color: #999;
 

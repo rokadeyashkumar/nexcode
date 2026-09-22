@@ -36,7 +36,7 @@
   padding: 2px 12px;
   border-radius: 12px;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #333;
     color: #999;
   }
@@ -62,7 +62,7 @@
     border-color: #999;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     border-color: #333;
     color: #999;
 
@@ -88,7 +88,7 @@
     background: #333;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #e8e8e8;
     color: #1a1a1a;
 
@@ -111,7 +111,7 @@
   padding: 18px 20px;
   transition: all 0.2s ease;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #242424;
     border-color: #333;
   }
@@ -120,7 +120,7 @@
     border-color: #999;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 
-    .dark & {
+    [data-theme='dark'] & {
       border-color: #555;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
@@ -149,7 +149,7 @@
   color: #666;
   font-weight: 500;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
   }
 }
@@ -176,7 +176,7 @@
   margin: 0 0 6px 0;
   color: #1a1a1a;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #e8e8e8;
   }
 }
@@ -187,7 +187,7 @@
   margin: 0 0 14px 0;
   line-height: 1.5;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
   }
 }
@@ -201,7 +201,7 @@
   border-bottom: 1px solid #f0f0f0;
   margin-bottom: 14px;
 
-  .dark & {
+  [data-theme='dark'] & {
     border-color: #333;
   }
 }
@@ -213,7 +213,7 @@
   font-size: 12px;
   color: #666;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
   }
 }
@@ -247,7 +247,7 @@
   border: 2px solid #ffffff;
   margin-left: -6px;
 
-  .dark & {
+  [data-theme='dark'] & {
     border-color: #242424;
     background: #333;
     color: #e8e8e8;
@@ -284,7 +284,7 @@
     background: #333;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #e8e8e8;
     color: #1a1a1a;
 
@@ -307,7 +307,7 @@
     background: #f5f5f5;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     border-color: #333;
     color: #999;
 

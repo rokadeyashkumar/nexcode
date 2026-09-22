@@ -4,43 +4,58 @@ import { useEffect, useRef, useState } from 'react';
 import * as Y from 'yjs';
 import { WebsocketProvider } from 'y-websocket';
 import FileEditor from '../file-editor/file-editor';
-import TerminalComponent from '../terminal/terminal';
-import styles from './collab-editor.module.scss';
 
-const NAMES = ['Amara', 'Dev', 'Priya', 'Sam', 'Noor', 'Kai'];
-const COLORS = ['#D85A30', '#1D9E75', '#378ADD', '#D4537E', '#BA7517', '#7F77DD'];
 const ROLE_LABELS = { view: 'viewer', edit: 'editor', admin: 'admin' };
 
-function randomFrom(list) {
-  return list[Math.floor(Math.random() * list.length)];
+// Deterministic color from a string (user email or id)
+const CURSOR_COLORS = [
+  '#D85A30', '#1D9E75', '#378ADD', '#D4537E',
+  '#BA7517', '#7F77DD', '#22C55E', '#EF4444',
+];
+
+function colorFromString(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return CURSOR_COLORS[Math.abs(hash) % CURSOR_COLORS.length];
 }
+
 function randomId() {
   return Math.random().toString(36).slice(2) + Date.now().toString(36);
 }
 
 const PROJECT_ROOM = 'nexcode-project-demo';
 
-export default function CollabEditor({ onBackToDashboard }) {
+export default function CollabEditor({ user, onBackToDashboard }) {
   const [role, setRole] = useState(null);
   const [identity, setIdentity] = useState(null);
   const [files, setFiles] = useState([]);
   const [selectedFileId, setSelectedFileId] = useState(null);
   const [projectStatus, setProjectStatus] = useState('connecting');
-  const [showTerminal, setShowTerminal] = useState(true);
 
   const filesMapRef = useRef(null);
 
   useEffect(() => {
+    // Resolve role from URL (or default to editor)
     const params = new URLSearchParams(window.location.search);
     const requestedRole = params.get('role');
     const resolvedRole = ROLE_LABELS[requestedRole] ? requestedRole : 'edit';
     setRole(resolvedRole);
+
+    // Use the real logged-in user
+    const userName = user?.name || user?.email?.split('@')[0] || 'Anonymous';
+    const userEmail = user?.email || '';
+    const userColor = colorFromString(userEmail || userName);
+
     setIdentity({
-      authorId: randomId(),
-      userName: randomFrom(NAMES),
-      userColor: randomFrom(COLORS),
+      authorId: user?.id || randomId(),
+      userName,
+      userEmail,
+      userColor,
     });
 
+    // Yjs project room
     const ydoc = new Y.Doc();
     const provider = new WebsocketProvider('ws://localhost:1234', PROJECT_ROOM, ydoc);
     const filesMap = ydoc.getMap('files');
@@ -48,8 +63,21 @@ export default function CollabEditor({ onBackToDashboard }) {
 
     provider.on('status', ({ status }) => setProjectStatus(status));
 
+    // Set awareness (presence)
+    if (provider.awareness) {
+      provider.awareness.setLocalStateField('user', {
+        id: user?.id || 'anon',
+        name: userName,
+        email: userEmail,
+        color: userColor,
+        role: resolvedRole,
+      });
+    }
+
     function syncFilesState() {
-      const list = Array.from(filesMap.values()).sort((a, b) => a.createdAt - b.createdAt);
+      const list = Array.from(filesMap.values()).sort(
+        (a, b) => a.createdAt - b.createdAt
+      );
       setFiles(list);
       setSelectedFileId((current) => current ?? list[0]?.id ?? null);
     }
@@ -66,7 +94,7 @@ export default function CollabEditor({ onBackToDashboard }) {
       provider.destroy();
       ydoc.destroy();
     };
-  }, []);
+  }, [user]);
 
   function addFile() {
     const filesMap = filesMapRef.current;
@@ -82,78 +110,141 @@ export default function CollabEditor({ onBackToDashboard }) {
   const ready = role && identity && selectedFileId;
 
   return (
-    <div className={styles.container}>
-      {/* Sidebar */}
-      <div className={styles.sidebar}>
-        <div className={styles.sidebarHeader}>
-          <div onClick={onBackToDashboard} className={styles.backBtn}>
+    <div style={{ height: '100vh', display: 'flex' }}>
+      <div
+        style={{
+          width: 200,
+          borderRight: '1px solid #ddd',
+          display: 'flex',
+          flexDirection: 'column',
+          fontSize: 13,
+          background: '#ffffff',
+        }}
+      >
+        <div style={{ padding: '10px 12px', borderBottom: '1px solid #eee', fontWeight: 600 }}>
+          <div
+            onClick={onBackToDashboard}
+            style={{
+              fontWeight: 400,
+              fontSize: 12,
+              color: '#3B82F6',
+              cursor: 'pointer',
+              marginBottom: 6,
+            }}
+          >
             ← Dashboard
           </div>
-          <div className={styles.projectTitle}>NexCode</div>
-          <div className={styles.projectStatus}>{projectStatus}</div>
+          NexCode
+          <div style={{ fontWeight: 400, color: '#888', fontSize: 11, marginTop: 2 }}>
+            {projectStatus}
+          </div>
         </div>
 
-        <div className={styles.fileList}>
+        {/* Current user badge */}
+        {identity && (
+          <div
+            style={{
+              padding: '10px 12px',
+              borderBottom: '1px solid #eee',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+            }}
+          >
+            <div
+              style={{
+                width: 28,
+                height: 28,
+                borderRadius: '50%',
+                background: identity.userColor,
+                color: '#fff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 12,
+                fontWeight: 600,
+                flexShrink: 0,
+              }}
+            >
+              {identity.userName.charAt(0).toUpperCase()}
+            </div>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <div
+                style={{
+                  fontSize: 12.5,
+                  fontWeight: 600,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {identity.userName}
+              </div>
+              <div
+                style={{
+                  fontSize: 11,
+                  color: '#888',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {identity.userEmail || role}
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div style={{ flex: 1, overflowY: 'auto', padding: 8 }}>
           {files.map((file) => (
             <div
               key={file.id}
               onClick={() => setSelectedFileId(file.id)}
-              className={`${styles.fileItem} ${file.id === selectedFileId ? styles.active : ''}`}
+              style={{
+                padding: '6px 8px',
+                borderRadius: 6,
+                cursor: 'pointer',
+                marginBottom: 2,
+                background: file.id === selectedFileId ? '#EAF3FE' : 'transparent',
+                color: file.id === selectedFileId ? '#1D4ED8' : '#333',
+              }}
             >
-              <span className={styles.fileIcon}>📄</span>
               {file.name}
             </div>
           ))}
         </div>
 
         {canAddFiles && (
-          <div className={styles.fileActions}>
-            <button onClick={addFile} className={styles.addFileBtn}>
-              + New File
+          <div style={{ padding: 8, borderTop: '1px solid #eee' }}>
+            <button
+              onClick={addFile}
+              style={{
+                width: '100%',
+                padding: '6px 0',
+                border: '1px solid #ddd',
+                borderRadius: 6,
+                background: '#fff',
+                cursor: 'pointer',
+              }}
+            >
+              + New file
             </button>
           </div>
         )}
       </div>
 
-      {/* Editor Area */}
-      <div className={styles.editorArea}>
-        <div className={styles.editorToolbar}>
-          <div className={styles.toolbarLeft}>
-            <span className={styles.fileInfo}>
-              {selectedFileId ? files.find(f => f.id === selectedFileId)?.name || 'No file selected' : 'No file selected'}
-            </span>
-          </div>
-          <div className={styles.toolbarRight}>
-            <button 
-              className={`${styles.terminalToggle} ${showTerminal ? styles.active : ''}`}
-              onClick={() => setShowTerminal(!showTerminal)}
-            >
-              {showTerminal ? '▼ Hide Terminal' : '▶ Show Terminal'}
-            </button>
-          </div>
-        </div>
-
-        <div className={styles.editorWrapper}>
-          {ready ? (
-            <FileEditor
-              key={selectedFileId}
-              room={`file-${selectedFileId}`}
-              role={role}
-              authorId={identity.authorId}
-              userName={identity.userName}
-              userColor={identity.userColor}
-            />
-          ) : (
-            <div className={styles.loading}>Loading project...</div>
-          )}
-        </div>
-
-        {/* Terminal */}
-        {showTerminal && (
-          <TerminalComponent 
-            onClose={() => setShowTerminal(false)}
-            initialCommand="help"
+      <div style={{ flex: 1 }}>
+        {ready ? (
+          <FileEditor
+            key={selectedFileId}
+            room={`file-${selectedFileId}`}
+            role={role}
+            authorId={identity.authorId}
+            userName={identity.userName}
+            userColor={identity.userColor}
           />
+        ) : (
+          <div style={{ padding: 24, color: '#888' }}>Loading project...</div>
         )}
       </div>
     </div>

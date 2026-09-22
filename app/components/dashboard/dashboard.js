@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { signOut } from 'next-auth/react';
 import styles from './dashboard.module.scss';
 import Sidebar from './sidebar/sidebar';
 import RecentView from './views/recent/recent';
@@ -11,7 +12,8 @@ import MeetingsView from './views/meetings/meetings';
 import NotesView from './views/notes/notes';
 import HelpView from './views/help/help';
 import SettingsView from './views/settings/settings';
-import ProfileView from './views/profile/profile'; // 👈 NEW
+import ProfileView from './views/profile/profile';
+import { useTheme } from '../../hooks/useTheme';
 
 const VIEWS = {
   recent: RecentView,
@@ -22,14 +24,23 @@ const VIEWS = {
   notes: NotesView,
   help: HelpView,
   settings: SettingsView,
-  profile: ProfileView, // 👈 NEW
+  profile: ProfileView,
 };
 
-export default function Dashboard({ onOpenProject }) {
+export default function Dashboard({ user, onOpenProject }) {
   const [activeView, setActiveView] = useState('recent');
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { isDarkMode, setIsDarkMode, mounted } = useTheme();
 
   const ViewComponent = VIEWS[activeView] || RecentView;
+
+  const handleLogout = async () => {
+    await signOut({ redirect: false });
+    window.location.href = '/';
+  };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div
@@ -37,14 +48,20 @@ export default function Dashboard({ onOpenProject }) {
       data-theme={isDarkMode ? 'dark' : 'light'}
     >
       <Sidebar
+        user={user}
         activeView={activeView}
         onViewChange={setActiveView}
         isDarkMode={isDarkMode}
         onThemeToggle={() => setIsDarkMode(!isDarkMode)}
+        onLogout={handleLogout}
       />
       <div className={styles.mainContent}>
         <div className={styles.content}>
-          <ViewComponent onOpenProject={onOpenProject} />
+          <ViewComponent
+            user={user}
+            onOpenProject={onOpenProject}
+            onLogout={handleLogout}
+          />
         </div>
       </div>
     </div>

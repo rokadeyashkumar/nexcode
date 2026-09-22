@@ -4,7 +4,7 @@
   padding: 60px 0 24px;
   border-top: 1px solid #e0e0e0;
 
-  .dark & {
+  [data-theme='dark'] & {
     border-top-color: #333;
   }
 }
@@ -38,7 +38,7 @@
   font-weight: 700;
   color: #1a1a1a;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #e8e8e8;
   }
 }
@@ -49,7 +49,7 @@
   font-weight: 700;
   color: #1a1a1a;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #e8e8e8;
   }
 }
@@ -59,7 +59,7 @@
   color: #666;
   margin: 0;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
   }
 }
@@ -85,7 +85,7 @@
     margin: 0 0 4px 0;
     color: #1a1a1a;
 
-    .dark & {
+    [data-theme='dark'] & {
       color: #e8e8e8;
     }
   }
@@ -100,7 +100,7 @@
       color: #1a1a1a;
     }
 
-    .dark & {
+    [data-theme='dark'] & {
       color: #999;
 
       &:hover {
@@ -119,7 +119,7 @@
   font-size: 14px;
   color: #666;
 
-  .dark & {
+  [data-theme='dark'] & {
     border-top-color: #333;
     color: #999;
   }
@@ -143,7 +143,7 @@
       color: #1a1a1a;
     }
 
-    .dark & {
+    [data-theme='dark'] & {
       color: #999;
 
       &:hover {

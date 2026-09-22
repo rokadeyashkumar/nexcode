@@ -1,5 +1,6 @@
 'use client';
 
+import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import styles from './auth.module.scss';
 
@@ -11,9 +12,12 @@ export default function Signup({ onBackToHome, onSignup, onSwitchToLogin, onGoog
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [passwordError, setPasswordError] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setPasswordError('');
 
     if (password !== confirmPassword) {
       setPasswordError('Passwords do not match');
@@ -25,11 +29,42 @@ export default function Signup({ onBackToHome, onSignup, onSwitchToLogin, onGoog
       return;
     }
 
-    setPasswordError('');
     setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    setIsLoading(false);
-    onSignup(name, email, password);
+
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || 'Something went wrong');
+        setIsLoading(false);
+        return;
+      }
+
+      const signInResult = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      });
+
+      setIsLoading(false);
+
+      if (signInResult?.error) {
+        setError('Account created, but login failed. Please log in.');
+        return;
+      }
+
+      onSignup(name, email, password);
+    } catch (err) {
+      console.error(err);
+      setError('Something went wrong. Please try again.');
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -164,6 +199,8 @@ export default function Signup({ onBackToHome, onSignup, onSwitchToLogin, onGoog
               I agree to the <a href="#">Terms of Service</a> and{' '}
               <a href="#">Privacy Policy</a>
             </label>
+
+            {error && <span className={styles.errorMessage}>{error}</span>}
 
             <button type="submit" className={styles.submitBtn} disabled={isLoading}>
               {isLoading ? 'Creating Account...' : 'Create Account'}

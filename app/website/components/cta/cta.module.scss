@@ -11,7 +11,7 @@
   text-align: center;
   color: #ffffff;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #ffffff;
     color: #1a1a1a;
   }
@@ -33,7 +33,7 @@
     color: #cccccc;
     margin: 0 0 32px 0;
 
-    .dark & {
+    [data-theme='dark'] & {
       color: #666;
     }
   }
@@ -65,7 +65,7 @@
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #1a1a1a;
     color: #ffffff;
 
@@ -100,7 +100,7 @@
     border-color: #666;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     border-color: #e0e0e0;
     color: #666;
 

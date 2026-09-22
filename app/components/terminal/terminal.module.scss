@@ -21,7 +21,7 @@
     }
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #1a1a1a;
     border-top-color: #333;
   }

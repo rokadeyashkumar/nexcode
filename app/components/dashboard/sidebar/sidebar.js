@@ -17,8 +17,23 @@ const NAV_ITEMS = [
   { id: 'settings', label: 'Settings', icon: Icons.Settings },
 ];
 
-export default function Sidebar({ activeView, onViewChange, isDarkMode, onThemeToggle }) {
+export default function Sidebar({
+  user,
+  activeView,
+  onViewChange,
+  isDarkMode,
+  onThemeToggle,
+  onLogout,
+}) {
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Real user display values
+  const displayName = user?.name || 'User';
+  const displayEmail = user?.email || '';
+  const displayRole = user?.role
+    ? user.role.charAt(0).toUpperCase() + user.role.slice(1)
+    : 'Editor';
+  const avatarLetter = displayName.charAt(0).toUpperCase();
 
   return (
     <div className={styles.sidebar}>
@@ -73,19 +88,49 @@ export default function Sidebar({ activeView, onViewChange, isDarkMode, onThemeT
           <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
         </button>
 
-        {/* User Card — clickable, goes to Profile */}
-        <button
-          className={`${styles.userCard} ${activeView === 'profile' ? styles.userCardActive : ''}`}
-          onClick={() => onViewChange('profile')}
-          aria-label="Open profile"
-        >
-          <div className={styles.userAvatar}>D</div>
-          <div className={styles.userInfo}>
-            <div className={styles.userName}>Dev</div>
-            <div className={styles.userRole}>Developer</div>
-          </div>
-        </button>
+        {/* User + Logout Row */}
+        <div className={styles.userRow}>
+          <button
+            className={`${styles.userCard} ${activeView === 'profile' ? styles.userCardActive : ''}`}
+            onClick={() => onViewChange('profile')}
+            aria-label="Open profile"
+          >
+            <div className={styles.userAvatar}>{avatarLetter}</div>
+            <div className={styles.userInfo}>
+              <div className={styles.userName}>{displayName}</div>
+              <div className={styles.userRole}>{displayRole}</div>
+            </div>
+          </button>
+
+          <button
+            className={styles.logoutBtn}
+            onClick={onLogout}
+            aria-label="Log out"
+            title="Log out"
+          >
+            <LogoutIcon />
+          </button>
+        </div>
       </div>
     </div>
+  );
+}
+
+function LogoutIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+      <polyline points="16 17 21 12 16 7" />
+      <line x1="21" y1="12" x2="9" y2="12" />
+    </svg>
   );
 }

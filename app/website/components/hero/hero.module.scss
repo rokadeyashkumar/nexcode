@@ -33,7 +33,7 @@
   color: #666;
   width: fit-content;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #2a2a2a;
     color: #999;
   }
@@ -71,7 +71,7 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: linear-gradient(135deg, #e8e8e8, #888);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -86,7 +86,7 @@
   max-width: 480px;
   margin: 0;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
   }
 }
@@ -121,7 +121,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #e8e8e8;
     color: #1a1a1a;
 
@@ -160,7 +160,7 @@
     border-color: #999;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     border-color: #333;
     color: #999;
 
@@ -182,7 +182,7 @@
   padding-top: 24px;
   border-top: 1px solid #e0e0e0;
 
-  .dark & {
+  [data-theme='dark'] & {
     border-top-color: #333;
   }
 
@@ -203,7 +203,7 @@
   font-weight: 700;
   color: #1a1a1a;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #e8e8e8;
   }
 }
@@ -212,7 +212,7 @@
   font-size: 13px;
   color: #666;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
   }
 }
@@ -226,7 +226,7 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   position: relative;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #1a1a1a;
     border-color: #333;
   }

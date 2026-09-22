@@ -1,5 +1,6 @@
 'use client';
 
+import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import styles from './auth.module.scss';
 
@@ -8,12 +9,26 @@ export default function Login({ onBackToHome, onLogin, onSwitchToSignup, onGoogl
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    const result = await signIn('credentials', {
+      email,
+      password,
+      redirect: false,
+    });
+
     setIsLoading(false);
+
+    if (result?.error) {
+      setError('Invalid email or password');
+      return;
+    }
+
     onLogin(email, password);
   };
 
@@ -124,6 +139,8 @@ export default function Login({ onBackToHome, onLogin, onSwitchToSignup, onGoogl
               </label>
               <a href="#" className={styles.forgotLink}>Forgot password?</a>
             </div>
+
+            {error && <span className={styles.errorMessage}>{error}</span>}
 
             <button type="submit" className={styles.submitBtn} disabled={isLoading}>
               {isLoading ? 'Logging in...' : 'Log In'}

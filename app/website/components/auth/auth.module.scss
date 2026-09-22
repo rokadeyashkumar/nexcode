@@ -13,7 +13,7 @@
     grid-template-columns: 1fr;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #1a1a1a;
     color: #e8e8e8;
   }
@@ -46,7 +46,7 @@
     display: none;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #0f0f0f;
   }
 }
@@ -164,7 +164,7 @@
   background: #ffffff;
   overflow-y: auto;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #1a1a1a;
   }
 }
@@ -192,7 +192,7 @@
     color: #1a1a1a;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
 
     &:hover {
@@ -217,7 +217,7 @@
     color: #666;
     margin: 0;
 
-    .dark & {
+    [data-theme='dark'] & {
       color: #999;
     }
   }
@@ -248,7 +248,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #242424;
     border-color: #333;
     color: #e8e8e8;
@@ -274,7 +274,7 @@
     height: 1px;
     background: #e0e0e0;
 
-    .dark & {
+    [data-theme='dark'] & {
       background: #333;
     }
   }
@@ -285,7 +285,7 @@
     text-transform: lowercase;
     white-space: nowrap;
 
-    .dark & {
+    [data-theme='dark'] & {
       color: #666;
     }
   }
@@ -309,7 +309,7 @@
   font-weight: 500;
   color: #1a1a1a;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #e8e8e8;
   }
 }
@@ -323,7 +323,7 @@
   transition: all 0.2s ease;
   background: #ffffff;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #242424;
     border-color: #333;
     color: #e8e8e8;
@@ -334,7 +334,7 @@
     border-color: #1a1a1a;
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 
-    .dark & {
+    [data-theme='dark'] & {
       border-color: #e8e8e8;
       box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
     }
@@ -343,7 +343,7 @@
   &::placeholder {
     color: #999;
 
-    .dark & {
+    [data-theme='dark'] & {
       color: #666;
     }
   }
@@ -369,7 +369,7 @@
   color: #666;
   cursor: pointer;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
   }
 
@@ -379,7 +379,7 @@
     height: 16px;
     cursor: pointer;
 
-    .dark & {
+    [data-theme='dark'] & {
       accent-color: #e8e8e8;
     }
   }
@@ -394,7 +394,7 @@
     color: #1a1a1a;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
 
     &:hover {
@@ -425,7 +425,7 @@
     cursor: not-allowed;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #e8e8e8;
     color: #1a1a1a;
 
@@ -444,7 +444,7 @@
   cursor: pointer;
   line-height: 1.5;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
   }
 
@@ -456,7 +456,7 @@
     flex-shrink: 0;
     margin-top: 1px;
 
-    .dark & {
+    [data-theme='dark'] & {
       accent-color: #e8e8e8;
     }
   }
@@ -469,7 +469,7 @@
       text-decoration: underline;
     }
 
-    .dark & {
+    [data-theme='dark'] & {
       color: #e8e8e8;
     }
   }
@@ -484,7 +484,7 @@
   font-size: 14px;
   color: #666;
 
-  .dark & {
+  [data-theme='dark'] & {
     border-top-color: #333;
     color: #999;
   }
@@ -504,7 +504,7 @@
     text-decoration: underline;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #e8e8e8;
   }
 }
@@ -516,7 +516,7 @@
   color: #999;
   font-family: v.$font-mono;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #666;
   }
 }

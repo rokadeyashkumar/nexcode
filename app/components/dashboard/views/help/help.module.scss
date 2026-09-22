@@ -36,7 +36,7 @@
   padding: 2px 12px;
   border-radius: 12px;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #333;
     color: #999;
   }
@@ -57,7 +57,7 @@
   border-radius: 6px;
   background: #f8f9fa;
 
-  .dark & {
+  [data-theme='dark'] & {
     border-color: #333;
     background: #1a1a1a;
   }
@@ -82,7 +82,7 @@
   outline: none;
   width: 180px;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #e8e8e8;
   }
 
@@ -106,7 +106,7 @@
   padding: 18px 20px;
   transition: all 0.2s ease;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #242424;
     border-color: #333;
   }
@@ -114,7 +114,7 @@
   &:hover {
     border-color: #999;
 
-    .dark & {
+    [data-theme='dark'] & {
       border-color: #555;
     }
   }
@@ -125,7 +125,7 @@
     margin: 0 0 4px 0;
     color: #1a1a1a;
 
-    .dark & {
+    [data-theme='dark'] & {
       color: #e8e8e8;
     }
   }
@@ -135,7 +135,7 @@
     color: #666;
     margin: 0 0 12px 0;
 
-    .dark & {
+    [data-theme='dark'] & {
       color: #999;
     }
   }
@@ -155,7 +155,7 @@
     opacity: 0.7;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #e8e8e8;
   }
 }
@@ -169,7 +169,7 @@
   padding-bottom: 6px;
   border-bottom: 1px solid #f0f0f0;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
     border-color: #333;
   }
@@ -190,7 +190,7 @@
   overflow: hidden;
   transition: all 0.2s ease;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #242424;
     border-color: #333;
   }
@@ -198,7 +198,7 @@
   &:hover {
     border-color: #999;
 
-    .dark & {
+    [data-theme='dark'] & {
       border-color: #555;
     }
   }
@@ -206,7 +206,7 @@
   &.open {
     border-color: #1a1a1a;
 
-    .dark & {
+    [data-theme='dark'] & {
       border-color: #e8e8e8;
     }
   }
@@ -228,7 +228,7 @@
   color: #1a1a1a;
   cursor: pointer;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #e8e8e8;
   }
 }
@@ -241,7 +241,7 @@
   width: 20px;
   text-align: center;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
   }
 }
@@ -253,7 +253,7 @@
   color: #666;
   animation: slideDown 0.2s ease;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
   }
 }
@@ -272,7 +272,7 @@
   border: 1px dashed #e0e0e0;
   border-radius: 6px;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #242424;
     border-color: #333;
     color: #666;
@@ -286,7 +286,7 @@
   border-radius: 8px;
   overflow: hidden;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #242424;
     border-color: #333;
   }
@@ -303,7 +303,7 @@
     border-bottom: none;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     border-bottom-color: #333;
   }
 }
@@ -325,7 +325,7 @@
   border-radius: 4px;
   color: #1a1a1a;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #1a1a1a;
     border-color: #333;
     color: #e8e8e8;
@@ -336,7 +336,7 @@
   font-size: 13.5px;
   color: #666;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
   }
 }

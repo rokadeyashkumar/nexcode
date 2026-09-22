@@ -36,7 +36,7 @@
   padding: 2px 12px;
   border-radius: 12px;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #333;
     color: #999;
   }
@@ -57,7 +57,7 @@
   border-radius: 6px;
   background: #f8f9fa;
 
-  .dark & {
+  [data-theme='dark'] & {
     border-color: #333;
     background: #1a1a1a;
   }
@@ -81,7 +81,7 @@
   color: #1a1a1a;
   outline: none;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #e8e8e8;
   }
 
@@ -106,7 +106,7 @@
     background: #333;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #e8e8e8;
     color: #1a1a1a;
 
@@ -124,7 +124,7 @@
   padding-bottom: 6px;
   border-bottom: 1px solid #f0f0f0;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
     border-color: #333;
   }
@@ -145,7 +145,7 @@
   transition: all 0.2s ease;
   position: relative;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #242424;
     border-color: #333;
   }
@@ -154,7 +154,7 @@
     border-color: #999;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 
-    .dark & {
+    [data-theme='dark'] & {
       border-color: #555;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
@@ -163,7 +163,7 @@
   &.pinned {
     border-left: 3px solid #1a1a1a;
 
-    .dark & {
+    [data-theme='dark'] & {
       border-left-color: #e8e8e8;
     }
   }
@@ -194,7 +194,7 @@
   margin: 0;
   color: #1a1a1a;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #e8e8e8;
   }
 }
@@ -212,7 +212,7 @@
   margin: 0 0 8px 0;
   line-height: 1.6;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
   }
 
@@ -231,14 +231,14 @@
   margin-bottom: 8px;
   text-decoration: underline;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
   }
 
   &:hover {
     color: #1a1a1a;
 
-    .dark & {
+    [data-theme='dark'] & {
       color: #e8e8e8;
     }
   }
@@ -258,7 +258,7 @@
   padding: 2px 10px;
   border-radius: 12px;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
     background: #333;
   }
@@ -270,7 +270,7 @@
   padding-top: 12px;
   border-top: 1px solid #f0f0f0;
 
-  .dark & {
+  [data-theme='dark'] & {
     border-top-color: #333;
   }
 }
@@ -285,7 +285,7 @@
   transition: all 0.2s ease;
   color: #666;
 
-  .dark & {
+  [data-theme='dark'] & {
     border-color: #333;
     color: #999;
   }
@@ -294,7 +294,7 @@
     background: #f5f5f5;
     border-color: #999;
 
-    .dark & {
+    [data-theme='dark'] & {
       background: #2a2a2a;
       border-color: #555;
     }
@@ -317,7 +317,7 @@
     color: #666;
     margin: 0;
 
-    .dark & {
+    [data-theme='dark'] & {
       color: #999;
     }
   }

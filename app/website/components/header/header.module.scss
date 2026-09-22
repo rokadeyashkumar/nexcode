@@ -12,14 +12,14 @@
   transition: all 0.3s ease;
   border-bottom: 1px solid transparent;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: rgba(26, 26, 26, 0.9);
   }
 
   &.scrolled {
     border-bottom-color: #e0e0e0;
 
-    .dark & {
+    [data-theme='dark'] & {
       border-bottom-color: #333;
     }
   }
@@ -51,7 +51,7 @@
   padding: 4px 10px;
   border-radius: 6px;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #e8e8e8;
     background: #333;
   }
@@ -64,7 +64,7 @@
   color: #1a1a1a;
   letter-spacing: -0.5px;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #e8e8e8;
   }
 }
@@ -91,7 +91,7 @@
     color: #1a1a1a;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
 
     &:hover {
@@ -109,7 +109,7 @@
     background: #1a1a1a;
     transition: width 0.2s ease;
 
-    .dark & {
+    [data-theme='dark'] & {
       background: #e8e8e8;
     }
   }
@@ -144,7 +144,7 @@
     border-color: #999;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     border-color: #333;
     color: #e8e8e8;
 
@@ -177,7 +177,7 @@
     color: #1a1a1a;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     border-color: #333;
     color: #999;
 
@@ -208,7 +208,7 @@
     background: #333;
   }
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #e8e8e8;
     color: #1a1a1a;
 
@@ -243,7 +243,7 @@
   background: #1a1a1a;
   position: relative;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #e8e8e8;
   }
 
@@ -256,7 +256,7 @@
     background: #1a1a1a;
     left: 0;
 
-    .dark & {
+    [data-theme='dark'] & {
       background: #e8e8e8;
     }
   }
@@ -277,7 +277,7 @@
   background: #ffffff;
   border-top: 1px solid #e0e0e0;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #242424;
     border-top-color: #333;
   }
@@ -294,7 +294,7 @@
   text-decoration: none;
   border-bottom: 1px solid #f0f0f0;
 
-  .dark & {
+  [data-theme='dark'] & {
     color: #999;
     border-bottom-color: #333;
   }
@@ -302,7 +302,7 @@
   &:hover {
     color: #1a1a1a;
 
-    .dark & {
+    [data-theme='dark'] & {
       color: #e8e8e8;
     }
   }
@@ -318,7 +318,7 @@
   cursor: pointer;
   color: #666;
 
-  .dark & {
+  [data-theme='dark'] & {
     border-color: #333;
     color: #999;
   }
@@ -326,7 +326,7 @@
   &:hover {
     background: #f0f0f0;
 
-    .dark & {
+    [data-theme='dark'] & {
       background: #2a2a2a;
     }
   }
@@ -343,7 +343,7 @@
   font-weight: 500;
   cursor: pointer;
 
-  .dark & {
+  [data-theme='dark'] & {
     background: #e8e8e8;
     color: #1a1a1a;
   }
@@ -351,7 +351,7 @@
   &:hover {
     background: #333;
 
-    .dark & {
+    [data-theme='dark'] & {
       background: #cccccc;
     }
   }
