@@ -57,7 +57,8 @@ export default function CollabEditor({ user, onBackToDashboard }) {
 
     // Yjs project room
     const ydoc = new Y.Doc();
-    const provider = new WebsocketProvider('ws://localhost:1234', PROJECT_ROOM, ydoc);
+    const SYNC_URL = process.env.NEXT_PUBLIC_SYNC_URL || 'ws://localhost:1234';
+const provider = new WebsocketProvider(SYNC_URL, PROJECT_ROOM, ydoc);
     const filesMap = ydoc.getMap('files');
     filesMapRef.current = filesMap;
 
