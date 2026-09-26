@@ -234,6 +234,9 @@ nexcode/
 ├── next.config.js
 ├── package.json
 └── README.md
+
+```
+
 Roadmap
 ✅ Completed
 ☑ Real-time multi-user editing (Yjs CRDT)
