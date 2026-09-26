@@ -1,0 +1,187 @@
+@use '../../../../styles/variables' as v;
+
+.menubar {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  background: #323233;
+  border-bottom: 1px solid #252526;
+  flex-shrink: 0;
+  padding: 0 12px;
+  user-select: none;
+
+  [data-theme='light'] & {
+    background: #f3f3f3;
+    border-bottom-color: #e0e0e0;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 20px;
+}
+
+.brandIcon {
+  font-family: v.$font-mono;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  background: #0e639c;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.brandText {
+  font-family: v.$font-display;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+
+  [data-theme='light'] & {
+    color: #1a1a1a;
+  }
+}
+
+.menus {
+  display: flex;
+  gap: 2px;
+  flex: 1;
+}
+
+.menuWrapper {
+  position: relative;
+}
+
+.menuBtn {
+  padding: 4px 10px;
+  border: none;
+  background: transparent;
+  color: #cccccc;
+  font-size: 12.5px;
+  font-family: v.$font-body;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: #3a3a3b;
+  }
+
+  [data-theme='light'] & {
+    color: #333;
+
+    &:hover {
+      background: #e0e0e0;
+    }
+  }
+}
+
+.menuBtnActive {
+  background: #094771;
+  color: #ffffff;
+
+  &:hover {
+    background: #094771;
+  }
+
+  [data-theme='light'] & {
+    background: #0e639c;
+    color: #ffffff;
+
+    &:hover {
+      background: #0e639c;
+    }
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  min-width: 220px;
+  background: #252526;
+  border: 1px solid #454545;
+  border-radius: 4px;
+  padding: 4px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+  [data-theme='light'] & {
+    background: #ffffff;
+    border-color: #d0d0d0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.dropdownItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  color: #cccccc;
+  font-size: 12.5px;
+  font-family: v.$font-body;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 3px;
+
+  &:hover {
+    background: #094771;
+    color: #ffffff;
+  }
+
+  [data-theme='light'] & {
+    color: #1a1a1a;
+
+    &:hover {
+      background: #0e639c;
+      color: #ffffff;
+    }
+  }
+}
+
+.shortcut {
+  font-size: 11px;
+  color: #858585;
+  margin-left: 20px;
+
+  [data-theme='light'] & {
+    color: #999;
+  }
+}
+
+.divider {
+  height: 1px;
+  background: #454545;
+  margin: 4px 8px;
+
+  [data-theme='light'] & {
+    background: #e0e0e0;
+  }
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modeBadge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 3px;
+  background: #2d2d2d;
+  color: #cccccc;
+
+  [data-theme='light'] & {
+    background: #e0e0e0;
+    color: #333;
+  }
+}

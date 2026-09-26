@@ -1,0 +1,71 @@
+@use '../../../../styles/variables' as v;
+
+.toggle {
+  display: inline-flex;
+  background: #3a3a3b;
+  border-radius: 4px;
+  padding: 2px;
+  gap: 2px;
+
+  [data-theme='light'] & {
+    background: #e0e0e0;
+  }
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border: none;
+  background: transparent;
+  color: #cccccc;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: v.$font-body;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  [data-theme='light'] & {
+    color: #666;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+.optionActive {
+  background: #0e639c;
+  color: #ffffff;
+
+  &:hover {
+    background: #1177bb;
+  }
+
+  [data-theme='light'] & {
+    background: #0e639c;
+    color: #ffffff;
+
+    &:hover {
+      background: #1177bb;
+    }
+  }
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.7;
+
+  .optionActive & {
+    opacity: 1;
+  }
+}

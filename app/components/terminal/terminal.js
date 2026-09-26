@@ -7,19 +7,16 @@ import { WebLinksAddon } from 'xterm-addon-web-links';
 import 'xterm/css/xterm.css';
 import styles from './terminal.module.scss';
 
-export default function TerminalComponent({ onClose, initialCommand }) {
+export default function TerminalComponent({ onClose, initialCommand, runMode = 'own' }) {
   const terminalRef = useRef(null);
   const terminalInstance = useRef(null);
   const fitAddon = useRef(null);
-  const [isReady, setIsReady] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
   const [commandHistory, setCommandHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
 
   useEffect(() => {
     if (!terminalRef.current) return;
 
-    // Initialize terminal
     const term = new Terminal({
       cursorBlink: true,
       fontSize: 13,
@@ -61,64 +58,59 @@ export default function TerminalComponent({ onClose, initialCommand }) {
     terminalInstance.current = term;
     fitAddon.current = fitAddonInstance;
 
-    // Show welcome message
+    // Welcome
+    const modeLabel = runMode === 'own' ? 'OWN (your code only)' : 'TEAM (merged code)';
     term.writeln('\x1b[1;32m╔══════════════════════════════════════════════════════════════╗\x1b[0m');
     term.writeln('\x1b[1;32m║  Welcome to NexCode Terminal                                ║\x1b[0m');
-    term.writeln('\x1b[1;32m║  Type your commands below. Press Enter to execute.          ║\x1b[0m');
+    term.writeln(`\x1b[1;32m║  Mode: ${modeLabel.padEnd(53)}║\x1b[0m`);
     term.writeln('\x1b[1;32m╚══════════════════════════════════════════════════════════════╝\x1b[0m');
     term.writeln('');
     term.writeln('\x1b[1;33mAvailable commands:\x1b[0m');
     term.writeln('  \x1b[36mhelp\x1b[0m     - Show this help message');
     term.writeln('  \x1b[36mclear\x1b[0m    - Clear the terminal');
-    term.writeln('  \x1b[36mls\x1b[0m       - List files in current directory');
+    term.writeln('  \x1b[36mls\x1b[0m       - List files');
     term.writeln('  \x1b[36mcat\x1b[0m      - View file contents');
     term.writeln('  \x1b[36mecho\x1b[0m     - Echo text');
     term.writeln('  \x1b[36mwhoami\x1b[0m   - Show current user');
+    term.writeln('  \x1b[36mnode\x1b[0m     - Run JS (usage: node <code>)');
     term.writeln('');
     term.write('\x1b[1;32m$ \x1b[0m');
 
-    let currentInput = '';
     let commandBuffer = '';
 
     const handleKey = (key, ev) => {
       const char = key;
 
-      if (ev.keyCode === 13) { // Enter
+      if (ev.keyCode === 13) {
         ev.preventDefault();
         const command = commandBuffer.trim();
         if (command) {
-          setCommandHistory(prev => [...prev, command]);
+          setCommandHistory((prev) => [...prev, command]);
           executeCommand(command, term);
         }
         commandBuffer = '';
         term.write('\r\n\x1b[1;32m$ \x1b[0m');
-      } else if (ev.keyCode === 8) { // Backspace
+      } else if (ev.keyCode === 8) {
         ev.preventDefault();
         if (commandBuffer.length > 0) {
           commandBuffer = commandBuffer.slice(0, -1);
           term.write('\b \b');
         }
-      } else if (ev.keyCode === 38) { // Up arrow
+      } else if (ev.keyCode === 38) {
         ev.preventDefault();
         if (commandHistory.length > 0) {
           const idx = historyIndex < 0 ? commandHistory.length - 1 : Math.max(0, historyIndex - 1);
           setHistoryIndex(idx);
-          // Clear current line
-          for (let i = 0; i < commandBuffer.length; i++) {
-            term.write('\b \b');
-          }
+          for (let i = 0; i < commandBuffer.length; i++) term.write('\b \b');
           commandBuffer = commandHistory[idx] || '';
           term.write(commandBuffer);
         }
-      } else if (ev.keyCode === 40) { // Down arrow
+      } else if (ev.keyCode === 40) {
         ev.preventDefault();
         if (historyIndex >= 0) {
           const idx = Math.min(commandHistory.length - 1, historyIndex + 1);
           setHistoryIndex(idx);
-          // Clear current line
-          for (let i = 0; i < commandBuffer.length; i++) {
-            term.write('\b \b');
-          }
+          for (let i = 0; i < commandBuffer.length; i++) term.write('\b \b');
           commandBuffer = commandHistory[idx] || '';
           term.write(commandBuffer);
         }
@@ -130,20 +122,23 @@ export default function TerminalComponent({ onClose, initialCommand }) {
 
     term.onKey(handleKey);
 
-    setIsReady(true);
-
-    // Handle window resize
+    // Resize handling — both window resize and container resize
     const handleResize = () => {
       try {
         fitAddonInstance.fit();
       } catch (e) {
-        // Ignore resize errors
+        // ignore
       }
     };
 
     window.addEventListener('resize', handleResize);
 
-    // Execute initial command if provided
+    // Also refit when the parent container changes size (drag-to-resize)
+    const resizeObserver = new ResizeObserver(() => {
+      handleResize();
+    });
+    resizeObserver.observe(terminalRef.current);
+
     if (initialCommand) {
       setTimeout(() => {
         term.write('\r\n');
@@ -154,6 +149,7 @@ export default function TerminalComponent({ onClose, initialCommand }) {
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      resizeObserver.disconnect();
       term.dispose();
     };
   }, []);
@@ -168,14 +164,13 @@ export default function TerminalComponent({ onClose, initialCommand }) {
         term.writeln('\r\n\x1b[1;33mAvailable commands:\x1b[0m');
         term.writeln('  \x1b[36mhelp\x1b[0m     - Show this help message');
         term.writeln('  \x1b[36mclear\x1b[0m    - Clear the terminal');
-        term.writeln('  \x1b[36mls\x1b[0m       - List files in current directory');
-        term.writeln('  \x1b[36mcat\x1b[0m      - View file contents (usage: cat <filename>)');
-        term.writeln('  \x1b[36mecho\x1b[0m     - Echo text (usage: echo <text>)');
+        term.writeln('  \x1b[36mls\x1b[0m       - List files');
+        term.writeln('  \x1b[36mcat\x1b[0m      - View file contents');
+        term.writeln('  \x1b[36mecho\x1b[0m     - Echo text');
         term.writeln('  \x1b[36mwhoami\x1b[0m   - Show current user');
-        term.writeln('  \x1b[36mdate\x1b[0m     - Show current date and time');
-        term.writeln('  \x1b[36mpwd\x1b[0m      - Show current working directory');
-        term.writeln('  \x1b[36mnode\x1b[0m     - Run Node.js code (usage: node <code>)');
-        term.writeln('  \x1b[36mpython\x1b[0m   - Run Python code (usage: python <code>)');
+        term.writeln('  \x1b[36mdate\x1b[0m     - Show current date/time');
+        term.writeln('  \x1b[36mpwd\x1b[0m      - Show working directory');
+        term.writeln('  \x1b[36mnode\x1b[0m     - Run JS (usage: node <code>)');
         break;
 
       case 'clear':
@@ -194,13 +189,10 @@ export default function TerminalComponent({ onClose, initialCommand }) {
       case 'cat':
         if (args.length === 0) {
           term.writeln('\r\n\x1b[31mError: Please specify a file name\x1b[0m');
-          term.writeln('  Usage: cat <filename>');
         } else {
-          const filename = args[0];
-          term.writeln(`\r\n\x1b[1;34m=== ${filename} ===\x1b[0m`);
+          term.writeln(`\r\n\x1b[1;34m=== ${args[0]} ===\x1b[0m`);
           term.writeln('  // Sample file content');
-          term.writeln('  console.log("Hello from ' + filename + '");');
-          term.writeln('  // ... more code here');
+          term.writeln('  console.log("Hello from ' + args[0] + '");');
         }
         break;
 
@@ -223,27 +215,15 @@ export default function TerminalComponent({ onClose, initialCommand }) {
       case 'node':
         if (args.length === 0) {
           term.writeln('\r\n\x1b[31mError: Please provide JavaScript code\x1b[0m');
-          term.writeln('  Usage: node <code>');
         } else {
           const code = args.join(' ');
           try {
+            // eslint-disable-next-line no-eval
             const result = eval(code);
             term.writeln('\r\n\x1b[1;32mResult: ' + result + '\x1b[0m');
           } catch (error) {
             term.writeln('\r\n\x1b[31mError: ' + error.message + '\x1b[0m');
           }
-        }
-        break;
-
-      case 'python':
-        if (args.length === 0) {
-          term.writeln('\r\n\x1b[31mError: Please provide Python code\x1b[0m');
-          term.writeln('  Usage: python <code>');
-        } else {
-          const pythonCode = args.join(' ');
-          term.writeln('\r\n\x1b[1;33mPython code execution:\x1b[0m');
-          term.writeln(`  ${pythonCode}`);
-          term.writeln('\x1b[1;32m  (Python execution not implemented in browser)\x1b[0m');
         }
         break;
 
@@ -255,12 +235,15 @@ export default function TerminalComponent({ onClose, initialCommand }) {
   };
 
   return (
-    <div className={`${styles.terminalContainer} ${isMinimized ? styles.minimized : ''}`}>
+    <div className={styles.terminalContainer}>
       <div className={styles.terminalHeader}>
         <div className={styles.terminalControls}>
-          <span className={styles.controlBtn} onClick={onClose}>✕</span>
-          <span className={styles.controlBtn} onClick={() => setIsMinimized(!isMinimized)}>
-            {isMinimized ? '□' : '−'}
+          <span
+            className={styles.controlBtn}
+            onClick={onClose}
+            title="Close terminal"
+          >
+            ✕
           </span>
         </div>
         <span className={styles.terminalTitle}>Terminal</span>
